@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .del {
+            text-decoration: line-through;
+            color: #c8c8c8;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--导航-->
+    <div class="navbar navbar-inverse">
+        <div class="container container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">ToDoList</a>
+            </div>
+        </div>
+    </div>
+    <!--待办事项-->
+    <div class="container">
+        <div class="h4 text-danger">
+            亲，你还有 {{ total }} 件事要办
+        </div>
+        <input type="text" class="form-control" placeholder="请输入，你要办的事情" v-model="thing" @keyup.13="add">
+        <ul class="nav nav-pills" style="margin: 5px 0;">
+            <li :class="{active: state=='complete'}"><a href="#complete">全部完成</a></li>
+            <li :class="{active: state=='finish'}"><a href="#finish">已完成</a></li>
+            <li :class="{active: state=='unfinish'}"><a href="#unfinish">未完成</a></li>
+        </ul>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for="(todo, index) of cloneTodo" @dblclick="changeTitle(todo)">
+                <!--双击时 告诉改的是哪一项-->
+                <div v-show="currentTodo != todo">
+                    <input type="checkbox" v-model="todo.isChecked">&nbsp;&nbsp;
+                    <span :class="{del: todo.isChecked}">{{ index + 1 }}. {{ todo.title }}</span>
+                    <button style="padding: 1px 6px" class="btn pull-right" @click="remove(todo)">&times;</button>
+                </div>
+                <input type="text" class="form-control" v-model="todo.title" v-show="currentTodo == todo"
+                       @keyup.13="reset" @blur="reset" @keyup.esc="cancel(todo)" v-auto-focus="currentTodo == todo">
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="todo.js"></script>
