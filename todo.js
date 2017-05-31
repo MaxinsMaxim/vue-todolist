@@ -50,12 +50,10 @@ var vm = new Vue({
         }
     },
     mounted() {
-        this.todos = JSON.parse(localStorage.getItem('todos')) || []; // 如果本地没有数据默认是空数组
-    },
+        this.todos = JSON.parse(localStorage.getItem('todos')) || [];
     watch: {
         todos: {
             handler() {
-                // 将todos存到本地 设置key和value, value会被自动toString
                 localStorage.setItem('todos', JSON.stringify(this.todos));
             },
             deep: true

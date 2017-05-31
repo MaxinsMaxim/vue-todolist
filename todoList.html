@@ -35,7 +35,6 @@
 
         <ul class="list-group">
             <li class="list-group-item" v-for="(todo, index) of cloneTodo" @dblclick="changeTitle(todo)">
-                <!--双击时 告诉改的是哪一项-->
                 <div v-show="currentTodo != todo">
                     <input type="checkbox" v-model="todo.isChecked">&nbsp;&nbsp;
                     <span :class="{del: todo.isChecked}">{{ index + 1 }}. {{ todo.title }}</span>
